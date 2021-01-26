@@ -1,0 +1,43 @@
+body {
+  background-color: #4c5760 !important;
+}
+
+button:hover {
+  background-color: #d7ceb2;
+  color: #4c5760 !important;
+}
+
+.Select-control {
+  background-color: #4c5760 !important;
+  color: white !important;
+}
+
+.Select-menu-outer {
+  background-color: #4c5760;
+  color: white !important;
+}
+
+.dash-dropdown {
+  color: white !important;
+}
+
+.ken-dropdown {
+  color: white !important;
+}
+
+.dash-dropdown:active {
+  color: white !important;
+  /* border-color: white !important;
+  outline: none !important; */
+}
+.dash-dropdown:focus {
+  color: white !important;
+  /* border-color: white !important;
+  outline: none !important; */
+}
+/* 
+option {
+  background-color: #4c5760;
+}
+
+*/

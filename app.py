@@ -11,6 +11,7 @@ import json
 import os
 
 external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
+colors = {"gray": "#4C5760", "bone": "#D7CEB2", "blue": "#00A7E1"}
 
 
 def load_ids():
@@ -40,76 +41,122 @@ round_list = ["RR", "BR", "R128", "R64", "R32", "R16", "QF", "SF", "F"]
 model = keras.models.load_model("models")
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+# app.css.append_css({"external_url": "/static/reset.css"})
+# app.server.static_folder = "static"
 
 server = app.server
 
 app.layout = html.Div(
-    [
-        html.H2("Tennis Match Predtiction"),
-        html.H3("Tournament Details"),
-        html.H6("Name"),
+    style={"width": "90%", "margin": "auto"},
+    children=[
+        html.Img(
+            style={
+                "height": "25px",
+                "display": "inline",
+                "marginRight": "15px",
+            },
+            src="https://ttt.studio/wp-content/uploads/2018/11/favicon.png",
+        ),
+        html.H2(
+            style={"display": "inline", "color": "#5993C3"},
+            children="Tennis Match Prediction",
+        ),
+        html.H3(style={"color": colors["bone"]}, children="Tournament Details"),
+        html.H6(style={"color": "white"}, children="Name"),
         dcc.Dropdown(
             id="t_name",
+            style={"color": "white"},
             options=[{"label": t_name, "value": t_name} for t_name in t_ids.keys()],
             placeholder="Wimbledon",
         ),
-        html.H6("Round"),
+        html.H6(style={"color": "white"}, children="Round"),
         dcc.Dropdown(
             id="t_round",
+            style={"color": "white"},
             options=[
                 {"label": t_round, "value": t_round} for t_round in round_ids.keys()
             ],
             placeholder="Final",
         ),
         html.Div(
-            style={"display": "flex", "justifyContent": "space-around"},
+            style={"display": "flex", "justifyContent": "space-between"},
             children=[
                 html.Div(
                     style={"width": "45%"},
                     children=[
-                        html.H3("Player 1 Details"),
-                        html.H6("Name"),
+                        html.H3(
+                            style={"color": colors["bone"]}, children="Player 1 Details"
+                        ),
+                        html.H6(style={"color": "white"}, children="Name"),
                         dcc.Dropdown(
                             id="p1_name",
+                            style={"color": "white"},
                             options=[
                                 {"label": p_name, "value": p_name}
                                 for p_name in p_ids.keys()
                             ],
                         ),
-                        html.H6("Age"),
-                        dcc.Input(id="p1_age", type="number"),
-                        html.H6("Rank"),
-                        dcc.Input(id="p1_rank", type="number"),
+                        html.H6(style={"color": "white"}, children="Age"),
+                        dcc.Input(
+                            style={"backgroundColor": colors["gray"], "color": "white"},
+                            id="p1_age",
+                            type="number",
+                        ),
+                        html.H6(style={"color": "white"}, children="Rank"),
+                        dcc.Input(
+                            style={"backgroundColor": colors["gray"], "color": "white"},
+                            id="p1_rank",
+                            type="number",
+                        ),
                     ],
                 ),
                 html.Div(
                     style={"width": "45%"},
                     children=[
-                        html.H3("Player 2 Details"),
-                        html.H6("Name"),
+                        html.H3(
+                            style={"color": colors["bone"]}, children="Player 2 Details"
+                        ),
+                        html.H6(style={"color": "white"}, children="Name"),
                         dcc.Dropdown(
                             id="p2_name",
+                            className="ken-dropdown",
+                            style={"color": "white"},
                             options=[
                                 {"label": p_name, "value": p_name}
                                 for p_name in p_ids.keys()
                             ],
                         ),
-                        html.H6("Age"),
-                        dcc.Input(id="p2_age", type="number"),
-                        html.H6("Rank"),
-                        dcc.Input(id="p2_rank", type="number"),
+                        html.H6(style={"color": "white"}, children="Age"),
+                        dcc.Input(
+                            style={"backgroundColor": colors["gray"], "color": "white"},
+                            id="p2_age",
+                            type="number",
+                        ),
+                        html.H6(style={"color": "white"}, children="Rank"),
+                        dcc.Input(
+                            style={"backgroundColor": colors["gray"], "color": "white"},
+                            id="p2_rank",
+                            type="number",
+                        ),
                     ],
                 ),
             ],
         ),
         html.Button(
-            style={"margin": "10px auto", "display": "block"},
+            style={"margin": "20px auto", "display": "block", "color": colors["bone"]},
             children="Submit",
             id="submit",
             n_clicks=0,
         ),
-        html.Div(id="result"),
-    ]
+        html.H6(
+            style={
+                "width": "fit-content",
+                "margin": "auto",
+                "color": colors["bone"],
+            },
+            id="result",
+        ),
+    ],
 )
 
 

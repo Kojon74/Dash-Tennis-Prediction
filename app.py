@@ -199,7 +199,7 @@ def calc_winner(_, t_name, t_round, p1_name, p1_age, p1_rank, p2_name, p2_age, p
     prediction = np.asarray([(pred1[0][i] + pred2[0][1 - i]) / 2 for i in range(2)])
     players = [p1_name, p2_name]
     winner = players[prediction.argmax()]
-    probability = np.amax(prediction) * 100
+    probability = int(np.amax(prediction) * 100)
     return f"Predicted winner: {winner}, with probability {probability}%"
 
 

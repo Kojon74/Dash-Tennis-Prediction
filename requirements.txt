@@ -1,0 +1,6 @@
+numpy==1.19.5
+dash_html_components==1.1.2
+tensorflow_cpu==2.4.1
+dash_core_components==1.15.0
+dash==1.19.0
+gunicorn==20.0.4

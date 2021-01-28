@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 
+import plotly.graph_objects as go
+
 import dash_core_components as dcc
 import dash_html_components as html
 import dash
 import dash_auth
 from dash.dependencies import Input, Output, State
-from auth import VALID_USERNAME_PASSSWORD
 
 from tensorflow import keras
 import numpy as np
 import json
 import os
+
+from auth import VALID_USERNAME_PASSSWORD
 
 external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
 colors = {"gray": "#4C5760", "bone": "#D7CEB2", "blue": "#00A7E1"}
@@ -408,20 +411,13 @@ demo_page = html.Div(
             id="submit",
             n_clicks=0,
         ),
-        html.H6(
-            style={
-                "width": "fit-content",
-                "margin": "auto",
-                "color": colors["bone"],
-            },
-            id="result",
-        ),
+        dcc.Graph(id="results-bar"),
     ],
 )
 
 
 @app.callback(
-    Output("result", "children"),
+    Output("results-bar", "figure"),
     Input("submit", "n_clicks"),
     State("t_name", "value"),
     State("t_round", "value"),
@@ -434,7 +430,7 @@ demo_page = html.Div(
 )
 def calc_winner(_, t_name, t_round, p1_name, p1_age, p1_rank, p2_name, p2_age, p2_rank):
     if not t_name:  # Return nothing if values empty
-        return ""
+        return go.Figure()
 
     t_round_id = round_ids[t_round]
 
@@ -458,9 +454,12 @@ def calc_winner(_, t_name, t_round, p1_name, p1_age, p1_rank, p2_name, p2_age, p
     pred2 = model.predict(data2)
     prediction = np.asarray([(pred1[0][i] + pred2[0][1 - i]) / 2 for i in range(2)])
     players = [p1_name, p2_name]
-    winner = players[prediction.argmax()]
-    probability = int(np.amax(prediction) * 100)
-    return f"Predicted winner: {winner}, with probability {probability}%"
+    probs = [int(prob * 100) for prob in prediction]
+    fig = go.Figure([go.Bar(x=players, y=probs, text=probs, textposition="auto")])
+    fig.update_layout(title_text=f"{players[0]} vs {players[1]} Match Prediction")
+    fig.update_xaxes(title_text="Players")
+    fig.update_yaxes(title_text="Predicted Chance of Winning (%)")
+    return fig
 
 
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])

@@ -70,6 +70,26 @@ body {
 
 /** Code End **/
 
+/** Demo Start **/
+
+.dropdown {
+  color: brown !important;
+}
+
+.has-value.Select--single > .Select-control .Select-value .Select-value-label,
+.has-value.is-pseudo-focused.Select--single
+  > .Select-control
+  .Select-value
+  .Select-value-label {
+  color: white;
+}
+
+.Select-input > input {
+  color: white;
+}
+
+/** Demo End **/
+
 button:hover {
   background-color: #d7ceb2;
   color: #4c5760 !important;

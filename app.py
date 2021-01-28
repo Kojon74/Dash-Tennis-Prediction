@@ -334,6 +334,7 @@ demo_page = html.Div(
         ),
         html.H6(style={"color": "white"}, children="Round"),
         dcc.Dropdown(
+            className="dropdown",
             id="t_round",
             style={"color": "white"},
             options=[
